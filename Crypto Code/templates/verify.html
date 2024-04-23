@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VERIFY DOCUMENT</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #e3ebeb;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 3px solid black; /* Changed border color to black */
+        border-radius: 5px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        text-align: center;
+        color: #0620a1;
+        margin-top: 20px;
+      }
+      form {
+        text-align: center;
+        margin-top: 20px;
+      }
+      label {
+        display: block;
+        margin-bottom: 10px;
+      }
+      #documentPreview,
+      #imagePreview {
+        margin-top: 20px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #documentPreview h3,
+      #imagePreview h3 {
+        margin-right: 20px;
+      }
+      #selectedDocument,
+      #selectedImage {
+        display: none;
+        max-width: 300px;
+        max-height: 300px;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      #message {
+        margin-top: 20px;
+        font-weight: bold;
+      }
+      .success {
+        color: #007bff; /* Blue color for success message */
+      }
+      .failed {
+        color: #ff0000; /* Red color for failed message */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>VERIFY DOCUMENT</h1>
+      {% with messages = get_flashed_messages() %} {% if messages %}
+      <ul>
+        {% for message in messages %}
+        <li
+          class="{% if 'success' in message %} success {% elif 'failed' in message %} failed {% endif %}"
+        >
+          {{ message }}
+        </li>
+        {% endfor %}
+      </ul>
+      {% endif %} {% endwith %}
+      <form method="POST" enctype="multipart/form-data">
+        <label for="document">Select Document:</label><br />
+        <input
+          type="file"
+          id="document"
+          name="document"
+          accept=".pdf"
+          onchange="displayDocument(this)"
+        /><br /><br />
+        <label for="image">Select Image for Verification:</label><br />
+        <input
+          type="file"
+          id="image"
+          name="image"
+          accept="image/*"
+          onchange="displayImage(this)"
+        /><br />
+        <span id="imageFilename"></span><br /><br />
+        <!-- Display selected image filename here -->
+        <button type="submit">Verify</button>
+      </form>
+
+      <!-- Display selected document -->
+      <div id="documentPreview">
+        <h3></h3>
+        <embed
+          id="selectedDocument"
+          src="#"
+          type="application/pdf"
+          width="300"
+          height="300"
+        />
+      </div>
+
+      <!-- Display selected image -->
+      <div id="imagePreview">
+        <h3></h3>
+        <img
+          id="selectedImage"
+          src="#"
+          alt="Selected Image"
+          width="300"
+          height="300"
+        />
+      </div>
+
+      <div id="message"></div>
+    </div>
+
+    <script>
+      // Function to display selected document
+      function displayDocument(input) {
+        var file = input.files[0];
+        var reader = new FileReader();
+        reader.onloadend = function () {
+          document.getElementById("selectedDocument").src = reader.result;
+          document.getElementById("selectedDocument").style.display = "block";
+        };
+        if (file) {
+          reader.readAsDataURL(file);
+        }
+      }
+
+      // Function to display selected image
+      function displayImage(input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            document.getElementById("selectedImage").src = e.target.result;
+            document.getElementById("selectedImage").style.display = "block";
+          };
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+
+      // Update image filename when an image is selected
+      document.getElementById("image").addEventListener("change", function () {
+        document.getElementById("imageFilename").innerText = this.files[0].name;
+      });
+    </script>
+  </body>
+</html>

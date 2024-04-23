@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Document</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #e3ebeb;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        max-width: 600px;
+        margin: 50px auto; /* Adjusted margin-top to move container slightly up */
+        padding: 20px;
+        border: 3px solid black; /* Changed border color to black */
+        border-radius: 5px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        text-align: center;
+        color: #0620a1;
+      }
+      form {
+        text-align: center;
+        margin-top: 20px;
+      }
+      label {
+        display: block;
+        margin-bottom: 10px;
+      }
+      #documentPreview,
+      #imagePreview {
+        margin-top: 20px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #documentPreview h3,
+      #imagePreview h3 {
+        margin-right: 20px;
+      }
+      #selectedDocument,
+      #selectedImage {
+        display: none;
+        max-width: 300px;
+        max-height: 300px;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      #message {
+        margin-top: 20px;
+        color: #007bff; /* Changed message text color */
+        font-weight: bold; /* Added font-weight to make the text bold */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Sign Document</h1>
+      <form method="POST" enctype="multipart/form-data">
+        <div class="input-box">
+          <label for="document">Select Document:</label>
+          <input
+            type="file"
+            id="document"
+            name="document"
+            accept=".pdf"
+            onchange="displayDocument(this)"
+          />
+        </div>
+        <!-- Display selected document preview -->
+        <div id="documentPreview">
+          <h3></h3>
+          <embed
+            id="selectedDocument"
+            src="#"
+            type="application/pdf"
+            width="300"
+            height="300"
+          />
+        </div>
+        <div class="input-box">
+          <label for="image">Select Image for Signature:</label>
+          <input
+            type="file"
+            id="image"
+            name="image"
+            accept="image/*"
+            onchange="displayImage(this)"
+          />
+        </div>
+        <!-- Display selected image preview -->
+        <div id="imagePreview">
+          <h3></h3>
+          <img
+            id="selectedImage"
+            src="#"
+            alt="Selected Image"
+            width="300"
+            height="300"
+          />
+        </div>
+        <button type="submit" onclick="showMessage()">Sign</button>
+      </form>
+
+      <div id="message"></div>
+    </div>
+
+    <script>
+      // Function to display selected document
+      function displayDocument(input) {
+        var file = input.files[0];
+        var reader = new FileReader();
+        reader.onloadend = function () {
+          document.getElementById("selectedDocument").src = reader.result;
+          document.getElementById("selectedDocument").style.display = "block";
+        };
+        if (file) {
+          reader.readAsDataURL(file);
+        }
+      }
+
+      // Function to display selected image
+      function displayImage(input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            document.getElementById("selectedImage").src = e.target.result;
+            document.getElementById("selectedImage").style.display = "block";
+          };
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+
+      function showMessage() {
+        var messageElement = document.getElementById("message");
+        messageElement.innerHTML =
+          "<span style='color: blue; font-weight: bold;'>Document signed successfully!</span>";
+      }
+    </script>
+  </body>
+</html>

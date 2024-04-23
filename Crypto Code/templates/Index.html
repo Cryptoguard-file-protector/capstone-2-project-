@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crypto Guard File Protector</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #e3ebeb;
+      }
+      header {
+        background-color: #e3ebeb;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        border-bottom: 3px solid #1a1a1a;
+      }
+      h1 {
+        margin: 0;
+        font-size: 2.5rem;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+        text-align: center;
+        margin-top: 20px;
+      }
+      li {
+        display: inline;
+        margin-right: 20px;
+      }
+      main {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h3 {
+        color: #333;
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+      }
+      h4 {
+        margin-top: 20px;
+        font-size: 1.2rem;
+        color: #555;
+      }
+      h4:first-of-type {
+        margin-top: 0;
+      }
+
+      /* Advanced CSS */
+      header {
+        position: relative;
+      }
+
+      header::after {
+        content: "";
+        display: block;
+        position: absolute;
+        bottom: -3px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+        height: 3px;
+        background-color: #1a1a1a;
+      }
+
+      header ul li a {
+        text-decoration: none;
+        color: #fff;
+        transition: color 0.3s ease;
+      }
+
+      header ul li a:hover {
+        color: #f8f8f8;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>CRYPTO GUARD FILE PROTECTOR</h1>
+      <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('about') }}">About</a></li>
+        <li><a href="{{ url_for('sign') }}">Sign Document</a></li>
+        <li><a href="{{ url_for('verify') }}">Verify Document</a></li>
+      </ul>
+    </header>
+    <main>
+      <h4>
+        This application allows users to digitally sign and verify documents
+        using images as passwords.
+      </h4>
+      <h4>Developed By:</h4>
+      <h4>2010030416 - Dileepreddy</h4>
+      <h4>2010030436 - Dimple</h4>
+      <h4>2010030416 - Sirisha</h4>
+      <h4>2010030416 - Roshan</h4>
+    </main>
+  </body>
+</html>
